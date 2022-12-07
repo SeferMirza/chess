@@ -25,6 +25,11 @@ public class ChessManagerTest : TestBase
         return board;
     }
 
+    public override void SetUp()
+    {
+        base.SetUp();
+    }
+
     static ChessManagerTest()
     {
         Config.RootNamespace = "Company";
@@ -34,10 +39,10 @@ public class ChessManagerTest : TestBase
     public void When_client_auth_request_send_with_guid__return_a_board()
     {
         var chessManager = Context.Get<ChessManager>();
-        var expected = new Guid("a30cc9ff-e9de-4c09-a056-b2d55a835515");
-        var actual = chessManager.Auth(new Guid("a30cc9ff-e9de-4c09-a056-b2d55a835515"));
+        var expected = new Guid("fbf2a59f-35d7-477c-b672-5a2506e7986c");
 
         BeginTest();
+        var actual = chessManager.Auth(new Guid("fbf2a59f-35d7-477c-b672-5a2506e7986c"));
 
         Assert.That(actual, Is.EqualTo(expected));
     }
@@ -62,6 +67,20 @@ public class ChessManagerTest : TestBase
         var connection1 = chessManager.Auth(new Guid("a30cc9ff-e9de-4c09-a056-b2d55a835515"));
         var connection2 = chessManager.Auth(new Guid("a30cc9ff-e9de-4c09-a056-b2d55a835515"));
 
-        Assert.Throws<Exception>(() => chessManager.Auth(new Guid("a30cc9ff-e9de-4c09-a056-b2d55a835515")));
+        Assert.Throws<Exception>(() =>
+        {
+            chessManager.Auth(new Guid("a30cc9ff-e9de-4c09-a056-b2d55a835515"));
+        });
+    }
+
+    [Test]
+    public void GameStartPiecePosition()
+    {
+        var chessManager = Context.Get<ChessManager>();
+
+        BeginTest();
+        var starterPosition = chessManager.GetBoardWithPieces();
+        
+        Assert.Fail("yazılacak...");
     }
 }
