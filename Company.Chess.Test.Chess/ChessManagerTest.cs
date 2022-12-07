@@ -14,9 +14,9 @@ public class ChessManagerTest : TestBase
     private Dictionary<string, string> EmptyBoard()
     {
         Dictionary<string, string> board = new();
-        for (int i = 1; i <= 8; i++)
+        for (int i = 0; i < 8; i++)
         {
-            for (int j = 1; j <= 8; j++)
+            for (int j = 0; j < 8; j++)
             {
                 board.Add(x[i] + y[j], "Empty");
             }
@@ -51,5 +51,17 @@ public class ChessManagerTest : TestBase
         BeginTest();
 
         Assert.That(chessManager.CreateBoard(), Is.EqualTo(emptyBoard));
+    }
+
+    [Test]
+    public void MaksimumTwoUserCanConnect()
+    {
+        var chessManager = Context.Get<ChessManager>();
+
+        BeginTest();
+        var connection1 = chessManager.Auth(new Guid("a30cc9ff-e9de-4c09-a056-b2d55a835515"));
+        var connection2 = chessManager.Auth(new Guid("a30cc9ff-e9de-4c09-a056-b2d55a835515"));
+
+        Assert.Throws<Exception>(() => chessManager.Auth(new Guid("a30cc9ff-e9de-4c09-a056-b2d55a835515")));
     }
 }

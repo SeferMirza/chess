@@ -9,7 +9,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/Company.Chess.App.Service/bin/Debug/net7.0/Company.Chess.App.Service.dll",
+            "program": "${workspaceFolder}/Company.Chess.App.Service/bin/Debug/net6.0/Company.Chess.App.Service.dll",
             "args": [],
             "cwd": "${workspaceFolder}/Company.Chess.App.Service",
             "stopAtEntry": false,
