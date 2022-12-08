@@ -10,40 +10,40 @@ public class ChessManager
     private string[] x = { "A", "B", "C", "D", "E", "F", "G", "H" };
     private string[] y = { "1", "2", "3", "4", "5", "6", "7", "8" };
 
-    private List<Piece> startPiece = new List<Piece>()
+    private List<IPiece> startPiece = new List<IPiece>()
     {
-        new Piece("A1", "WhiteCastleLeft"),
-        new Piece("H1", "WhiteCastleRight"),
-        new Piece("B1", "WhiteHorseLeft"),
-        new Piece("G1", "WhiteHorseRight"),
-        new Piece("C1", "WhiteElephantLeft"),
-        new Piece("F1", "WhiteElephantRight"),
-        new Piece("D1", "WhiteQueen"),
-        new Piece("E1", "WhiteKing"),
-        new Piece("A8", "BlackCastleLeft"),
-        new Piece("H8", "BlackCastleRight"),
-        new Piece("B8", "BlackHorseLeft"),
-        new Piece("G8", "BlackHorseRight"),
-        new Piece("C8", "BlackElephantLeft"),
-        new Piece("F8", "BlackElephantRight"),
-        new Piece("D8", "BlackQueen"),
-        new Piece("E8", "BlackKing"),
-        new Piece("A2", "WhitePawn1"),
-        new Piece("B2", "WhitePawn2"),
-        new Piece("C2", "WhitePawn3"),
-        new Piece("D2", "WhitePawn4"),
-        new Piece("E2", "WhitePawn5"),
-        new Piece("F2", "WhitePawn6"),
-        new Piece("G2", "WhitePawn7"),
-        new Piece("H2", "WhitePawn8"),
-        new Piece("A7", "BlackPawn1"),
-        new Piece("B7", "BlackPawn2"),
-        new Piece("C7", "BlackPawn3"),
-        new Piece("D7", "BlackPawn4"),
-        new Piece("E7", "BlackPawn5"),
-        new Piece("F7", "BlackPawn6"),
-        new Piece("G7", "BlackPawn7"),
-        new Piece("H7", "BlackPawn8")
+        new Castle("A1", Color.White, Direction.Left),
+        new Castle("H1", Color.White, Direction.Rigth),
+        new Horse("B1",Color.White, Direction.Left),
+        new Horse("G1", Color.White, Direction.Rigth),
+        new Elephant("C1", Color.White, Direction.Left),
+        new Elephant("F1",Color.White, Direction.Rigth),
+        new Queen("D1",Color.White),
+        new King("E1", Color.White),
+        new Castle("A8", Color.Black, Direction.Left),
+        new Castle("H8", Color.Black, Direction.Rigth),
+        new Horse("B8", Color.Black, Direction.Left),
+        new Horse("G8", Color.Black, Direction.Rigth),
+        new Elephant("C8", Color.Black, Direction.Left),
+        new Elephant("F8", Color.Black, Direction.Rigth),
+        new Queen("D8", Color.Black),
+        new King("E8", Color.Black),
+        new Pawn("A2", Color.White, "Pawn1"),
+        new Pawn("B2", Color.White, "Pawn2"),
+        new Pawn("C2", Color.White, "Pawn3"),
+        new Pawn("D2", Color.White, "Pawn4"),
+        new Pawn("E2", Color.White, "Pawn5"),
+        new Pawn("F2", Color.White, "Pawn6"),
+        new Pawn("G2", Color.White, "Pawn7"),
+        new Pawn("H2", Color.White, "Pawn8"),
+        new Pawn("A7", Color.Black, "Pawn1"),
+        new Pawn("B7", Color.Black, "Pawn2"),
+        new Pawn("C7", Color.Black, "Pawn3"),
+        new Pawn("D7", Color.Black, "Pawn4"),
+        new Pawn("E7", Color.Black, "Pawn5"),
+        new Pawn("F7", Color.Black, "Pawn6"),
+        new Pawn("G7", Color.Black, "Pawn7"),
+        new Pawn("H7", Color.Black, "Pawn8")
     };
 
     private readonly IModuleContext _context;
@@ -75,14 +75,20 @@ public class ChessManager
     public void CreateGame() { }
 
     // Taş hareketi. Not: json yada class dönülebilir. Client tarafında işler kolaylaşır
-    public string Move(Guid guid, string oldSquare, string newSquare)
+    public string Move(string oldSquare, string newSquare, Guid guid = default)
     {
-
-        return "";
+        foreach(var piece in startPiece)
+        {
+            if(piece.Square == oldSquare){
+                piece.Move(newSquare);
+                return "İşlem gerçekleşti";
+            }
+        }
+        return "İşlem geçersiz";
     }
 
-    
-    # region TEST İÇİN 
+
+    #region TEST İÇİN 
     public Dictionary<string, string> CreateBoard()
     {
         Dictionary<string, string> board = new();
@@ -107,7 +113,7 @@ public class ChessManager
             {
                 if (square.Key == piece.Square)
                 {
-                    emptyBoard[square.Key] = piece.Name;
+                    emptyBoard[square.Key] = piece.GetPieceName();
                 }
             }
         }
@@ -121,7 +127,7 @@ public class ChessManager
         var board = GetBoardWithPieces();
         var result = new List<string>();
 
-        foreach(var square in board)
+        foreach (var square in board)
         {
             result.Add(square.Key + " - " + square.Value);
         }

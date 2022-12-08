@@ -2,5 +2,7 @@ namespace Company.Chess.Module.Chess;
 
 public interface IPiece
 {
-    public Piece Move(string oldSquare, string newSquare);
+    string Square => string.Empty;
+    void Move(string newSquare);
+    string GetPieceName();
 }
