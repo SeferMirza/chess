@@ -14,9 +14,14 @@ public class King : IPiece
 
     public void Move(string newSquare)
     {
+        bool isFalseMoveOnY = Math.Abs(int.Parse(newSquare.Last().ToString()) - int.Parse(_square.Last().ToString())) > 1;
+        bool isFalseMoveOnX = (Math.Abs(newSquare.FindIndexInX() - _square.FindIndexInX()) > 1);
+        bool isNotMoveXY = newSquare == _square;
+
+        if(isFalseMoveOnY || isFalseMoveOnX || isNotMoveXY) throw new Exception("Geçersiz hareket");
+        
         _square = newSquare;
     }
 
     public string GetPieceName() => _color.StringValue() + " " + nameof(Elephant);
-
 }

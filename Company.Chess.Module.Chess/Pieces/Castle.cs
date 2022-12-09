@@ -17,6 +17,10 @@ public class Castle : IPiece
 
     public void Move(string newSquare)
     {
+        bool isCrossMove = Math.Abs(int.Parse(newSquare.Last().ToString()) - int.Parse(_square.Last().ToString())) >= 1 && _square.First() != newSquare.First();
+
+        if(isCrossMove) throw new Exception("Geçersiz hareket");
+        
         _square = newSquare;
     }
 

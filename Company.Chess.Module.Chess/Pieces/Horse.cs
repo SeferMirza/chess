@@ -16,6 +16,7 @@ public class Horse : IPiece
 
     public void Move(string newSquare)
     {
+        bool isNotMove = _square == newSquare;
         _square = newSquare;
     }
     public string GetPieceName() => _color.StringValue() + " " + _direction.StringValue() + " " + nameof(Horse);
