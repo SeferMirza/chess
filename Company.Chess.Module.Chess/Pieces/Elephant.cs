@@ -18,6 +18,11 @@ public class Elephant : IPiece
 
     public void Move(string newSquare)
     {
+        bool isCorosMove = int.Parse(newSquare.Last().ToString()) - int.Parse(_square.Last().ToString()) == 0
+                        && _square.First().ToString().FindIndexInX() - newSquare.First().ToString().FindIndexInX() == 0;
+
+        if(!isCorosMove) throw new Exception("Geçersiz hamle");
+        
         _square = newSquare;
     }
 

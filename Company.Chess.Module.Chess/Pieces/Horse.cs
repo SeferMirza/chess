@@ -16,7 +16,12 @@ public class Horse : IPiece
 
     public void Move(string newSquare)
     {
+        bool isMoveLPattern1 = Math.Abs(newSquare.FindIndexInX() - _square.FindIndexInX()) == 2 && Math.Abs(int.Parse(newSquare.Last().ToString()) - int.Parse(_square.Last().ToString())) == 1;
+        bool isMoveLPattern2 = Math.Abs(newSquare.FindIndexInX() - _square.FindIndexInX()) == 1 && Math.Abs(int.Parse(newSquare.Last().ToString()) - int.Parse(_square.Last().ToString())) == 2;
         bool isNotMove = _square == newSquare;
+
+        if(!(isMoveLPattern1 || isMoveLPattern2) || isNotMove) throw new Exception("Yanlış hareket");
+        
         _square = newSquare;
     }
     public string GetPieceName() => _color.StringValue() + " " + _direction.StringValue() + " " + nameof(Horse);
