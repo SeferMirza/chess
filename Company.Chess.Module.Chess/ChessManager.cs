@@ -5,8 +5,7 @@ namespace Company.Chess.Module.Chess;
 public class ChessManager
 {
     private const int MAX_PLAYER = 2;
-    private List<List<Guid>> _players = new List<List<Guid>>();
-
+    private List<Game> _games = new List<Game>();
     private string[] x = { "A", "B", "C", "D", "E", "F", "G", "H" };
     private string[] y = { "1", "2", "3", "4", "5", "6", "7", "8" };
 
@@ -56,83 +55,28 @@ public class ChessManager
     // Kullanıcı bağlantıları
     public Guid Auth(Guid guid)
     {
-        foreach (var loby in _players)
-        {
-            if (loby.Contains(guid) && loby.Count == 2) throw new Exception("max 2 player");
-            else if (loby.Contains(guid) && loby.Count == 1)
-            {
-                loby.Add(guid);
-                return guid;
-            }
-        }
-
-        _players.Add(new List<Guid>() { guid });
-
         return guid;
     }
 
     // Bağlantı başına bir oyun oluşur.
-    public void CreateGame() { }
+    public Game CreateGame(List<IPiece> pieces = default!)
+    {
+        var game = new Game(Guid.Empty, Guid.Empty, pieces ?? startPiece);
+        _games.Add(game); 
+        return game;
+    }
 
     // Taş hareketi. Not: json yada class dönülebilir. Client tarafında işler kolaylaşır
-    public string Move(string oldSquare, string newSquare, Guid guid = default)
+    public string Move(string oldSquare, string newSquare, Game game = default)
     {
-        foreach(var piece in startPiece)
+        foreach (var piece in game.Pieces)
         {
-            if(piece.Square == oldSquare){
+            if (piece.Square == oldSquare)
+            {
                 piece.Move(newSquare);
                 return "İşlem gerçekleşti";
             }
         }
         return "İşlem geçersiz";
     }
-
-
-    #region TEST İÇİN 
-    public Dictionary<string, string> CreateBoard()
-    {
-        Dictionary<string, string> board = new();
-        for (int i = 0; i < 8; i++)
-        {
-            for (int j = 0; j < 8; j++)
-            {
-                board.Add(x[i] + y[j], "Empty");
-            }
-        }
-
-        return board;
-    }
-
-    // ToDo - Test için boardı görmek adına
-    public Dictionary<string, string> GetBoardWithPieces()
-    {
-        var emptyBoard = CreateBoard();
-        foreach (var square in emptyBoard)
-        {
-            foreach (var piece in startPiece)
-            {
-                if (square.Key == piece.Square)
-                {
-                    emptyBoard[square.Key] = piece.GetPieceName();
-                }
-            }
-        }
-
-        return emptyBoard;
-    }
-
-    // ToDo - Test için yazılmış method iş bitince kaldırılacak yada private alınacak
-    public List<string> GetListForTest()
-    {
-        var board = GetBoardWithPieces();
-        var result = new List<string>();
-
-        foreach (var square in board)
-        {
-            result.Add(square.Key + " - " + square.Value);
-        }
-
-        return result;
-    }
-    # endregion
 }
