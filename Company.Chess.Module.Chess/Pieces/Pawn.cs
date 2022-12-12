@@ -12,6 +12,7 @@ public class Pawn : IPiece
         _color = color;
         _name = name;
     }
+
     string IPiece.Square => _square;
 
     public void Move(string newSquare)
@@ -20,9 +21,14 @@ public class Pawn : IPiece
         bool isSameLine = newSquare.First() == _square.First();
 
         if(isOneSquareMove && isSameLine) throw new Exception("Geçersiz hamle");
-        
+
         _square = newSquare;
     }
 
     public string GetPieceName() => _color.StringValue() + " " + _name;
+
+    public List<string> GetSquareInPath(string newSquare)
+    {
+        return new List<string>();
+    }
 }

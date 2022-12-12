@@ -61,18 +61,22 @@ public class ChessManager
     // Bağlantı başına bir oyun oluşur.
     public Game CreateGame(List<IPiece> pieces = default!)
     {
-        var game = new Game(Guid.Empty, Guid.Empty, pieces ?? startPiece);
-        _games.Add(game); 
+        var game = new Game(Guid.Empty, Guid.Empty, pieces.Count == 0 ? startPiece : pieces);
+        _games.Add(game);
         return game;
     }
 
     // Taş hareketi. Not: json yada class dönülebilir. Client tarafında işler kolaylaşır
-    public string Move(string oldSquare, string newSquare, Game game = default)
+    public string Move(string oldSquare, string newSquare, Game game = default!)
     {
+        game = game == default ? _games.First() : game;
         foreach (var piece in game.Pieces)
         {
             if (piece.Square == oldSquare)
             {
+                var paths = piece.GetSquareInPath(newSquare);
+                if(game.Pieces.Where(p => paths.Contains(p.Square)).Count() > 0) throw new Exception("İşlem geçersiz");
+                // Todo - Son karede başka taş varsa rakibin olan listeden silinecek. Eğer king se oyun biter
                 piece.Move(newSquare);
                 return "İşlem gerçekleşti";
             }

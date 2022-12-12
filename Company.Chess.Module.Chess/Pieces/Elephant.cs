@@ -22,9 +22,14 @@ public class Elephant : IPiece
                         && _square.First().ToString().FindIndexInX() - newSquare.First().ToString().FindIndexInX() == 0;
 
         if(!isCorosMove) throw new Exception("Geçersiz hamle");
-        
+
         _square = newSquare;
     }
 
     public string GetPieceName() => _color.StringValue() + " " + _direction.StringValue() + " " + nameof(Elephant);
+
+    public List<string> GetSquareInPath(string newSquare)
+    {
+        throw new NotImplementedException();
+    }
 }

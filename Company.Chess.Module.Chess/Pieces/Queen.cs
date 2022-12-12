@@ -16,14 +16,18 @@ public class Queen : IPiece
     {
         bool isNotMoveY = Math.Abs(int.Parse(newSquare.Last().ToString()) - int.Parse(_square.Last().ToString())) == 0;
         bool isNotMoveX = Math.Abs(newSquare.First().ToString().FindIndexInX() - _square.First().ToString().FindIndexInX()) == 0;
-        bool isNotCorosMove = (int.Parse(newSquare.Last().ToString()) - int.Parse(_square.Last().ToString())) 
+        bool isNotCorosMove = (int.Parse(newSquare.Last().ToString()) - int.Parse(_square.Last().ToString()))
                             - (_square.First().ToString().FindIndexInX() - newSquare.First().ToString().FindIndexInX()) != 0;
 
         if(isNotCorosMove || isNotMoveX || isNotMoveY) throw new Exception("Yanlış hamle");
-        
+
         _square = newSquare;
     }
 
     public string GetPieceName() => _color.StringValue() + " " + nameof(Queen);
 
+    public List<string> GetSquareInPath(string newSquare)
+    {
+        throw new NotImplementedException();
+    }
 }

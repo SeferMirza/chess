@@ -19,9 +19,14 @@ public class King : IPiece
         bool isNotMoveXY = newSquare == _square;
 
         if(isFalseMoveOnY || isFalseMoveOnX || isNotMoveXY) throw new Exception("Geçersiz hareket");
-        
+
         _square = newSquare;
     }
 
     public string GetPieceName() => _color.StringValue() + " " + nameof(Elephant);
+
+    public List<string> GetSquareInPath(string newSquare)
+    {
+        throw new NotImplementedException();
+    }
 }

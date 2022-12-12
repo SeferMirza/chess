@@ -21,9 +21,13 @@ public class Horse : IPiece
         bool isNotMove = _square == newSquare;
 
         if(!(isMoveLPattern1 || isMoveLPattern2) || isNotMove) throw new Exception("Yanlış hareket");
-        
+
         _square = newSquare;
     }
     public string GetPieceName() => _color.StringValue() + " " + _direction.StringValue() + " " + nameof(Horse);
 
+    public List<string> GetSquareInPath(string newSquare)
+    {
+        throw new NotImplementedException();
+    }
 }
