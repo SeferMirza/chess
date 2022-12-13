@@ -11,6 +11,7 @@ public class King : IPiece
         _color = color;
     }
     string IPiece.Square => _square;
+    public Color Color => _color;
 
     public void Move(string newSquare)
     {

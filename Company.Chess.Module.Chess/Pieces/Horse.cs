@@ -13,6 +13,7 @@ public class Horse : IPiece
         _direction = direction;
     }
     string IPiece.Square => _square;
+    public Color Color => _color;
 
     public void Move(string newSquare)
     {

@@ -15,6 +15,7 @@ public class Elephant : IPiece
     }
 
     string IPiece.Square => _square;
+    public Color Color => _color;
 
     public void Move(string newSquare)
     {

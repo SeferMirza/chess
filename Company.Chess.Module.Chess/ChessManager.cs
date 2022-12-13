@@ -69,14 +69,21 @@ public class ChessManager
     // Taş hareketi. Not: json yada class dönülebilir. Client tarafında işler kolaylaşır
     public string Move(string oldSquare, string newSquare, Game game = default!)
     {
-        game = game == default ? _games.First() : game;
+        game = game ??= _games.First();
         foreach (var piece in game.Pieces)
         {
             if (piece.Square == oldSquare)
             {
                 var paths = piece.GetSquareInPath(newSquare);
                 if(game.Pieces.Where(p => paths.Contains(p.Square)).Count() > 0) throw new Exception("İşlem geçersiz");
-                // Todo - Son karede başka taş varsa rakibin olan listeden silinecek. Eğer king se oyun biter
+                var lastSquareSamePiece = game.Pieces.Where(p => p.Square == newSquare && p.Color == piece.Color).FirstOrDefault();
+                var lastSquareDifferentPiece = game.Pieces.Where(p => p.Square == newSquare && p.Color != piece.Color).FirstOrDefault();
+                if(lastSquareSamePiece != null){
+                    throw new Exception("İşlem geçersiz");
+                }
+                else if(lastSquareDifferentPiece != null){
+                    game.Pieces.Remove(lastSquareDifferentPiece);
+                }
                 piece.Move(newSquare);
                 return "İşlem gerçekleşti";
             }
