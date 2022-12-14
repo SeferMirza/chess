@@ -22,7 +22,7 @@ public class Elephant : IPiece
         bool isCorosMove = int.Parse(newSquare.Last().ToString()) - int.Parse(_square.Last().ToString()) == 0
                         && _square.First().ToString().FindIndexInX() - newSquare.First().ToString().FindIndexInX() == 0;
 
-        if(!isCorosMove) throw new Exception("Geçersiz hamle");
+        if (!isCorosMove) throw new Exception("Geçersiz hamle");
 
         _square = newSquare;
     }
@@ -31,6 +31,50 @@ public class Elephant : IPiece
 
     public List<string> GetSquareInPath(string newSquare)
     {
-        throw new NotImplementedException();
+        List<string> result = new();
+        bool isLowerThenOldSquareY = int.Parse(newSquare.Last().ToString()) < int.Parse(_square.Last().ToString());
+        bool isLowerThenOldSquareX = _square.First().ToString().FindIndexInX() > newSquare.First().ToString().FindIndexInX();
+        var xPose = _square.First().ToString().FindIndexInX();
+        if (isLowerThenOldSquareY)
+        {
+            if (isLowerThenOldSquareX)
+            {
+
+                for (int i = int.Parse(_square.Last().ToString()); i >= int.Parse(newSquare.Last().ToString()) && xPose > 0; i--)
+                {
+                    result.Add(Board.X[xPose-1]+Board.Y[i]);
+                    xPose--;
+                }
+            }
+            else
+            {
+                for (int i = int.Parse(_square.Last().ToString()); i >= int.Parse(newSquare.Last().ToString()) && xPose < 8; i--)
+                {
+                    result.Add(Board.X[xPose+1]+Board.Y[i]);
+                    xPose++;
+                }
+            }
+        }
+        else
+        {
+            if (isLowerThenOldSquareX)
+            {
+
+                for (int i = int.Parse(_square.Last().ToString()); i <= int.Parse(newSquare.Last().ToString()) && xPose > 0; i++)
+                {
+                    result.Add(Board.X[xPose-1]+Board.Y[i]);
+                    xPose--;
+                }
+            }
+            else
+            {
+                for (int i = int.Parse(_square.Last().ToString()); i <= int.Parse(newSquare.Last().ToString()) && xPose < 8; i++)
+                {
+                    result.Add(Board.X[xPose+1]+Board.Y[i]);
+                    xPose++;
+                }
+            }
+        }
+        return result;
     }
 }

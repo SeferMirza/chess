@@ -30,6 +30,6 @@ public class Pawn : IPiece
 
     public List<string> GetSquareInPath(string newSquare)
     {
-        return new List<string>();
+        return new();
     }
 }

@@ -28,6 +28,6 @@ public class King : IPiece
 
     public List<string> GetSquareInPath(string newSquare)
     {
-        throw new NotImplementedException();
+        return new();
     }
 }
