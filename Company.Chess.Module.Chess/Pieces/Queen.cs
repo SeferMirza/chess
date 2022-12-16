@@ -20,7 +20,7 @@ public class Queen : IPiece
         bool isNotCorosMove = (int.Parse(newSquare.Last().ToString()) - int.Parse(_square.Last().ToString()))
                             - (_square.First().ToString().FindIndexInX() - newSquare.First().ToString().FindIndexInX()) != 0;
 
-        if (isNotCorosMove || isNotMoveX || isNotMoveY) throw new Exception("Yanlış hamle");
+        if (isNotCorosMove && isNotMoveX && isNotMoveY) throw new Exception("Yanlış hamle");
 
         _square = newSquare;
     }
@@ -29,10 +29,11 @@ public class Queen : IPiece
 
     public List<string> GetSquareInPath(string newSquare)
     {
+        // ToDo - Burda sıkıntı var 1 kare ileri giderken çaprazı hesaplıyor
         List<string> result = new();
         bool isMoveX = Math.Abs(int.Parse(newSquare.Last().ToString()) - int.Parse(_square.Last().ToString())) == 0;
         bool isMoveY = Math.Abs(newSquare.First().ToString().FindIndexInX() - _square.First().ToString().FindIndexInX()) == 0;
-        bool isCorosMove = isMoveY || isMoveX;
+        bool isCorosMove =  isMoveY || isMoveX;//Math.Abs(int.Parse(newSquare.Last().ToString()) - int.Parse(_square.Last().ToString())) == Math.Abs(newSquare.First().ToString().FindIndexInX() - _square.First().ToString().FindIndexInX());
 
         if (isCorosMove)
         {

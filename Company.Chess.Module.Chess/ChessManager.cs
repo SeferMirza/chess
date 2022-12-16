@@ -61,7 +61,8 @@ public class ChessManager
     // Bağlantı başına bir oyun oluşur.
     public Game CreateGame(List<IPiece> pieces = default!)
     {
-        var game = new Game(Guid.Empty, Guid.Empty, pieces.Count == 0 ? startPiece : pieces);
+        pieces = (pieces == null ? startPiece : (pieces.FirstOrDefault() == default ? startPiece : pieces));
+        var game = new Game(Guid.Empty, Guid.Empty, pieces);
         _games.Add(game);
         return game;
     }

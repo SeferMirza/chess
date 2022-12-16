@@ -17,8 +17,8 @@ public class Horse : IPiece
 
     public void Move(string newSquare)
     {
-        bool isMoveLPattern1 = Math.Abs(newSquare.FindIndexInX() - _square.FindIndexInX()) == 2 && Math.Abs(int.Parse(newSquare.Last().ToString()) - int.Parse(_square.Last().ToString())) == 1;
-        bool isMoveLPattern2 = Math.Abs(newSquare.FindIndexInX() - _square.FindIndexInX()) == 1 && Math.Abs(int.Parse(newSquare.Last().ToString()) - int.Parse(_square.Last().ToString())) == 2;
+        bool isMoveLPattern1 = Math.Abs(newSquare.First().ToString().FindIndexInX() - _square.First().ToString().FindIndexInX()) == 2 && Math.Abs(int.Parse(newSquare.Last().ToString()) - int.Parse(_square.Last().ToString())) == 1;
+        bool isMoveLPattern2 = Math.Abs(newSquare.First().ToString().FindIndexInX() - _square.First().ToString().FindIndexInX()) == 1 && Math.Abs(int.Parse(newSquare.Last().ToString()) - int.Parse(_square.Last().ToString())) == 2;
         bool isNotMove = _square == newSquare;
 
         if(!(isMoveLPattern1 || isMoveLPattern2) || isNotMove) throw new Exception("Yanlış hareket");
@@ -27,8 +27,5 @@ public class Horse : IPiece
     }
     public string GetPieceName() => _color.StringValue() + " " + _direction.StringValue() + " " + nameof(Horse);
 
-    public List<string> GetSquareInPath(string newSquare)
-    {
-        throw new NotImplementedException();
-    }
+    public List<string> GetSquareInPath(string newSquare) => new();
 }

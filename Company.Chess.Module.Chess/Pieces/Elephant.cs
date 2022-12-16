@@ -19,8 +19,7 @@ public class Elephant : IPiece
 
     public void Move(string newSquare)
     {
-        bool isCorosMove = int.Parse(newSquare.Last().ToString()) - int.Parse(_square.Last().ToString()) == 0
-                        && _square.First().ToString().FindIndexInX() - newSquare.First().ToString().FindIndexInX() == 0;
+        bool isCorosMove = int.Parse(newSquare.Last().ToString()) - int.Parse(_square.Last().ToString()) == Math.Abs(_square.First().ToString().FindIndexInX() - newSquare.First().ToString().FindIndexInX());
 
         if (!isCorosMove) throw new Exception("Geçersiz hamle");
 
@@ -39,10 +38,9 @@ public class Elephant : IPiece
         {
             if (isLowerThenOldSquareX)
             {
-
                 for (int i = int.Parse(_square.Last().ToString()); i >= int.Parse(newSquare.Last().ToString()) && xPose > 0; i--)
                 {
-                    result.Add(Board.X[xPose-1]+Board.Y[i]);
+                    result.Add(Board.X[xPose - 1] + Board.Y[i]);
                     xPose--;
                 }
             }
@@ -50,7 +48,7 @@ public class Elephant : IPiece
             {
                 for (int i = int.Parse(_square.Last().ToString()); i >= int.Parse(newSquare.Last().ToString()) && xPose < 8; i--)
                 {
-                    result.Add(Board.X[xPose+1]+Board.Y[i]);
+                    result.Add(Board.X[xPose + 1] + Board.Y[i]);
                     xPose++;
                 }
             }
@@ -60,9 +58,9 @@ public class Elephant : IPiece
             if (isLowerThenOldSquareX)
             {
 
-                for (int i = int.Parse(_square.Last().ToString()); i <= int.Parse(newSquare.Last().ToString()) && xPose > 0; i++)
+                for (int i = int.Parse(_square.Last().ToString()); i <= int.Parse(newSquare.Last().ToString()) && xPose > 1; i++)
                 {
-                    result.Add(Board.X[xPose-1]+Board.Y[i]);
+                    result.Add(Board.X[xPose - 1] + Board.Y[i]);
                     xPose--;
                 }
             }
@@ -70,7 +68,7 @@ public class Elephant : IPiece
             {
                 for (int i = int.Parse(_square.Last().ToString()); i <= int.Parse(newSquare.Last().ToString()) && xPose < 8; i++)
                 {
-                    result.Add(Board.X[xPose+1]+Board.Y[i]);
+                    result.Add(Board.X[xPose + 1] + Board.Y[i]);
                     xPose++;
                 }
             }
