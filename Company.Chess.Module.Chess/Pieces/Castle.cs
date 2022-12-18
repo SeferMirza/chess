@@ -1,4 +1,4 @@
-namespace Company.Chess.Module.Chess;
+namespace Company.Chess.Module.Chess.Pieces;
 
 public class Castle : IPiece
 {
@@ -56,6 +56,5 @@ public class Castle : IPiece
 
         return result;
     }
-
     public string GetPieceName() => _color.StringValue() + " " + _direction.StringValue() + " " + nameof(Castle);
 }

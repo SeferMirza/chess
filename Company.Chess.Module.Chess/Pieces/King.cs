@@ -1,4 +1,4 @@
-namespace Company.Chess.Module.Chess;
+namespace Company.Chess.Module.Chess.Pieces;
 
 public class King : IPiece
 {
@@ -24,7 +24,7 @@ public class King : IPiece
         _square = newSquare;
     }
 
-    public string GetPieceName() => _color.StringValue() + " " + nameof(Elephant);
+    public string GetPieceName() => _color.StringValue() + " " + nameof(King);
 
     public List<string> GetSquareInPath(string newSquare)
     {

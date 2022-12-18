@@ -1,4 +1,4 @@
-namespace Company.Chess.Module.Chess;
+namespace Company.Chess.Module.Chess.Pieces;
 
 public class Horse : IPiece
 {

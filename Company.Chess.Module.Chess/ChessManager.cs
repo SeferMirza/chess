@@ -1,3 +1,4 @@
+using Company.Chess.Module.Chess.Pieces;
 using Gazel;
 
 namespace Company.Chess.Module.Chess;
@@ -68,13 +69,14 @@ public class ChessManager
     }
 
     // Taş hareketi. Not: json yada class dönülebilir. Client tarafında işler kolaylaşır
-    public string Move(string oldSquare, string newSquare, Game game = default!)
+    public Game Move(string oldSquare, string newSquare, Game game = default!)
     {
         game = game ??= _games.First();
         foreach (var piece in game.Pieces)
         {
             if (piece.Square == oldSquare)
             {
+                bool isKing = piece.GetPieceName().Contains("King");
                 var paths = piece.GetSquareInPath(newSquare);
                 if(game.Pieces.Where(p => paths.Contains(p.Square)).Count() > 0) throw new Exception("Yolda engel var");
                 var lastSquareSamePiece = game.Pieces.Where(p => p.Square == newSquare && p.Color == piece.Color).FirstOrDefault();
@@ -89,9 +91,9 @@ public class ChessManager
                 else{
                     piece.Move(newSquare);
                 }
-                return "İşlem gerçekleşti";
+                return _games.First();
             }
         }
-        return "İşlem geçersiz";
+        throw new Exception("İşlem geçersiz");
     }
 }

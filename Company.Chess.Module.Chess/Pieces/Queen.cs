@@ -1,4 +1,4 @@
-namespace Company.Chess.Module.Chess;
+namespace Company.Chess.Module.Chess.Pieces;
 
 public class Queen : IPiece
 {
@@ -74,7 +74,7 @@ public class Queen : IPiece
 
                     for (int i = int.Parse(_square.Last().ToString()); i >= int.Parse(newSquare.Last().ToString()) && xPose > 0; i--)
                     {
-                        result.Add(Board.X[xPose - 1] + Board.Y[i]);
+                        result.Add(Board.X[xPose - 1] + Board.Y[i-1]);
                         xPose--;
                     }
                 }
@@ -94,7 +94,7 @@ public class Queen : IPiece
 
                     for (int i = int.Parse(_square.Last().ToString()); i <= int.Parse(newSquare.Last().ToString()) && xPose > 0; i++)
                     {
-                        result.Add(Board.X[xPose - 1] + Board.Y[i]);
+                        result.Add(Board.X[xPose - 1] + Board.Y[i-1]);
                         xPose--;
                     }
                 }

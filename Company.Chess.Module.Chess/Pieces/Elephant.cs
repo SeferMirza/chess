@@ -1,4 +1,4 @@
-namespace Company.Chess.Module.Chess;
+namespace Company.Chess.Module.Chess.Pieces;
 
 public class Elephant : IPiece
 {
@@ -38,7 +38,7 @@ public class Elephant : IPiece
         {
             if (isLowerThenOldSquareX)
             {
-                for (int i = int.Parse(_square.Last().ToString()); i >= int.Parse(newSquare.Last().ToString()) && xPose > 0; i--)
+                for (int i = int.Parse(_square.Last().ToString()); i > int.Parse(newSquare.Last().ToString()) && xPose > 0; i--)
                 {
                     result.Add(Board.X[xPose - 1] + Board.Y[i]);
                     xPose--;
@@ -46,9 +46,9 @@ public class Elephant : IPiece
             }
             else
             {
-                for (int i = int.Parse(_square.Last().ToString()); i >= int.Parse(newSquare.Last().ToString()) && xPose < 8; i--)
+                for (int i = int.Parse(_square.Last().ToString()); i > int.Parse(newSquare.Last().ToString()) && xPose < 7; i--)
                 {
-                    result.Add(Board.X[xPose + 1] + Board.Y[i]);
+                    result.Add(Board.X[xPose + 1] + Board.Y[i-1]);
                     xPose++;
                 }
             }
@@ -58,7 +58,7 @@ public class Elephant : IPiece
             if (isLowerThenOldSquareX)
             {
 
-                for (int i = int.Parse(_square.Last().ToString()); i <= int.Parse(newSquare.Last().ToString()) && xPose > 1; i++)
+                for (int i = int.Parse(_square.Last().ToString()); i < int.Parse(newSquare.Last().ToString()) && xPose > 0; i++)
                 {
                     result.Add(Board.X[xPose - 1] + Board.Y[i]);
                     xPose--;
@@ -66,9 +66,9 @@ public class Elephant : IPiece
             }
             else
             {
-                for (int i = int.Parse(_square.Last().ToString()); i <= int.Parse(newSquare.Last().ToString()) && xPose < 8; i++)
+                for (int i = int.Parse(_square.Last().ToString()); i < int.Parse(newSquare.Last().ToString()) && xPose < 7; i++)
                 {
-                    result.Add(Board.X[xPose + 1] + Board.Y[i]);
+                    result.Add(Board.X[xPose + 1] + Board.Y[i-1]);
                     xPose++;
                 }
             }

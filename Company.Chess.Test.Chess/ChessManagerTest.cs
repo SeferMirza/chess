@@ -1,6 +1,5 @@
-using Gazel;
-using Gazel.UnitTesting;
 using Company.Chess.Module.Chess;
+using Company.Chess.Module.Chess.Pieces;
 
 namespace Company.Chess.Test.Chess;
 
@@ -41,16 +40,32 @@ public class ChessManagerTest : ChessTestBase
     }
 
     [Test]
-    public void konum_gecersizse_exception_atilir()
+    public void yol_uzerinde_baska_parca_varsa_veya_hareket_alanı_disindaysa_exception_atilir()
     {
         BeginTest();
         Prepare();
 
         Assert.Throws<Exception>(() => chessManager.Move("A8", "C1"));
+        Assert.Throws<Exception>(() => chessManager.Move("A1", "A8"));
         Assert.Throws<Exception>(() => chessManager.Move("B8", "C1"));
-        Assert.Throws<Exception>(() => chessManager.Move("C8", "C1"));
+        Assert.Throws<Exception>(() => chessManager.Move("C8", "H8"));
+        Assert.Throws<Exception>(() => chessManager.Move("A8", "H8"));
         Assert.Throws<Exception>(() => chessManager.Move("D8", "C4"));
         Assert.Throws<Exception>(() => chessManager.Move("F1", "C1"));
         Assert.Throws<Exception>(() => chessManager.Move("H1", "C1"));
+    }
+
+    [Test]
+    public void bir_tas_yenirse_listeden_cikar()
+    {
+        CreateCustomGame(new List<IPiece>{
+            new Company.Chess.Module.Chess.Pieces.Castle("A1", Color.White, Direction.Left),
+            new Pawn("A7", Color.Black, "pawn1")
+        });
+
+        BeginTest();
+        var game = chessManager.Move("A1", "A7");
+
+        Assert.IsTrue(game.Pieces.Count() == 1);
     }
 }

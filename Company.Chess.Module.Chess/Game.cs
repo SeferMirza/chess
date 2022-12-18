@@ -4,14 +4,14 @@ namespace Company.Chess.Module.Chess;
 
 public class Game
 {
-    public Game(Guid player1, Guid player2, List<IPiece> pieces)
+    public Game(Guid whitePlayer, Guid blackPlayer, List<IPiece> pieces)
     {
-        Player1 = player1;
-        Player2 = player2;
+        WhitePlayer = whitePlayer;
+        BlackPlayer = blackPlayer;
         Pieces = pieces;
     }
 
-    public Guid Player1 { get; }
-    public Guid Player2 { get; }
+    public Guid WhitePlayer { get; }
+    public Guid BlackPlayer { get; }
     public List<IPiece> Pieces { get; }
 }
