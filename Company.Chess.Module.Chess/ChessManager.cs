@@ -76,20 +76,17 @@ public class ChessManager
         {
             if (piece.Square == oldSquare)
             {
-                bool isKing = piece.GetPieceName().Contains("King");
-                var paths = piece.GetSquareInPath(newSquare);
-                if(game.Pieces.Where(p => paths.Contains(p.Square)).Count() > 0) throw new Exception("Yolda engel var");
-                var lastSquareSamePiece = game.Pieces.Where(p => p.Square == newSquare && p.Color == piece.Color).FirstOrDefault();
-                var lastSquareDifferentPiece = game.Pieces.Where(p => p.Square == newSquare && p.Color != piece.Color).FirstOrDefault();
-                if(lastSquareSamePiece != null){
-                    throw new Exception("İşlem geçersiz");
-                }
-                else if(lastSquareDifferentPiece != null){
+                if (!piece.CanMove(game, newSquare)) { throw new Exception("İşlem geçersiz"); }
+                var isEmpty = piece.SquareIsEmpty(game, newSquare);
+
+                if (isEmpty)
+                {
                     piece.Move(newSquare);
-                    game.Pieces.Remove(lastSquareDifferentPiece);
                 }
-                else{
+                else if (!isEmpty && piece.CanEat(game, newSquare))
+                {
                     piece.Move(newSquare);
+                    game.Pieces.Remove(game.Pieces.Find(p => p.Square == newSquare)!);
                 }
                 return _games.First();
             }
